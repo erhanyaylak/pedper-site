@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>PedPer Publishing — Marka Kiti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#281A52; --dark:#4A2E83; --brand:#6E52A3; --logo:#8C7BC4; --lav:#A68CC8; --lav-l:#E6DEFA; --gray:#E9E9EE;
+  --ink:#1E1B2E; --muted:#5C5870; --paper:#FFFFFF; --soft:#F6F4FB;
+  --iso:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34.64' height='60' viewBox='0 0 34.64 60'%3E%3Cpath d='M0 0 L34.64 20 M0 20 L34.64 40 M0 40 L34.64 60 M34.64 0 L0 20 M34.64 20 L0 40 M34.64 40 L0 60 M17.32 0 V60' stroke='%23A68CC8' stroke-opacity='.16' stroke-width='.8' fill='none'/%3E%3C/svg%3E");
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#d9d6e3}
+body{font-family:"Montserrat",Arial,sans-serif;color:var(--ink);font-size:9.6pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;margin:10mm auto;background:var(--paper);position:relative;overflow:hidden;padding:15mm 15mm 18mm;box-shadow:0 6px 30px rgb(40 26 82 / .18);page-break-after:always;break-after:page}
+@media print{html{background:none}.page{margin:0;box-shadow:none}}
+img{display:block}
+
+/* page chrome */
+.top{display:flex;justify-content:space-between;align-items:center;font-size:7pt;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--lav);padding-bottom:5mm;border-bottom:1px solid var(--gray);margin-bottom:8mm}
+.top img{height:7mm}
+.foot{position:absolute;left:15mm;right:15mm;bottom:9mm;display:flex;justify-content:space-between;font-size:7pt;color:var(--muted);letter-spacing:.04em}
+.foot b{color:var(--brand);font-weight:600}
+.corner{position:absolute;right:0;bottom:0;width:58mm;height:42mm;background:linear-gradient(135deg,transparent 50%,var(--lav-l) 50%);opacity:.9}
+.corner::after{content:"";position:absolute;right:0;bottom:0;width:30mm;height:22mm;background:linear-gradient(135deg,transparent 50%,var(--lav) 50%);opacity:.55}
+
+/* section labels (parallelogram nod to isometric) */
+.label{display:inline-flex;align-items:center;gap:3mm;background:var(--dark);color:#fff;font-weight:700;font-size:12pt;padding:2mm 9mm 2mm 5mm;clip-path:polygon(0 0,100% 0,calc(100% - 4mm) 100%,0 100%);letter-spacing:.01em}
+.label i{font-style:normal;font-weight:500;color:var(--lav);font-size:9pt}
+.sub{font-weight:700;font-size:10.5pt;color:var(--dark);margin:7mm 0 3mm}
+.lead{color:var(--muted);font-size:9.6pt;max-width:150mm;margin-top:3.5mm}
+.small{font-size:7.6pt;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm}
+.card{border:1px solid var(--gray);border-radius:3mm;padding:5mm}
+.card h4{font-size:9.6pt;font-weight:700;color:var(--dark)}
+.card p{font-size:8.2pt;color:var(--muted);margin-top:1.2mm}
+.rule{height:1px;background:var(--gray);margin:7mm 0}
+
+/* cover */
+.cover{background:var(--night);background-image:var(--iso),radial-gradient(120mm 120mm at 80% 30%,rgb(110 82 163 / .55),transparent 70%);color:#fff;padding:0;display:flex;flex-direction:column}
+.cover .in{padding:26mm 18mm 0;flex:1;display:flex;flex-direction:column}
+.cover .kicker{font-size:8pt;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--lav)}
+.cover .logo{width:150mm;margin:34mm 0 0 -3mm}
+.cover h1{font-weight:700;font-size:40pt;line-height:1.05;margin-top:26mm;letter-spacing:-.01em}
+.cover h1 span{color:var(--logo)}
+.cover .line{width:22mm;height:1.2mm;background:var(--lav);margin:7mm 0}
+.cover p{font-size:11pt;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#D9D0F5}
+.cover .bottom{display:flex;justify-content:space-between;align-items:flex-end;padding:0 18mm 14mm;font-size:8pt;color:#C9BEEF;letter-spacing:.06em}
+.cover .bottom b{color:#fff;font-weight:600;font-size:10pt;letter-spacing:.02em}
+.cover .tri{position:absolute;right:0;top:0;width:70mm;height:70mm;background:linear-gradient(225deg,rgb(166 140 200 / .45) 0 50%,transparent 50%)}
+
+/* logo page */
+.hero-logo{background:var(--soft);background-image:var(--iso);border-radius:4mm;height:64mm;display:grid;place-items:center;margin-top:6mm}
+.hero-logo img{width:128mm}
+.anatomy{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:6mm}
+.anatomy .card{padding:4mm}
+.anatomy .n{display:inline-grid;place-items:center;width:5.5mm;height:5.5mm;border-radius:50%;background:var(--dark);color:#fff;font-size:7pt;font-weight:700;margin-bottom:2mm}
+.space{position:relative;display:grid;place-items:center;height:50mm;border:1px dashed var(--lav);border-radius:3mm;background:#fff}
+.space .box{position:relative;padding:9mm;border:1px dashed var(--brand);background:repeating-linear-gradient(45deg,transparent 0 2mm,rgb(166 140 200 / .12) 2mm 3mm)}
+.space .box img{width:66mm;background:#fff}
+.space .x{position:absolute;font-size:7pt;font-weight:700;color:var(--brand);background:#fff;padding:0 1mm}
+.minsize{display:flex;align-items:flex-end;gap:7mm;margin-top:3mm}
+.minsize figure{display:flex;flex-direction:column;gap:2mm}
+.minsize figcaption{font-size:7.2pt;color:var(--muted)}
+
+/* variations */
+.var{border-radius:3mm;height:42mm;display:grid;place-items:center;border:1px solid var(--gray);position:relative}
+.var img{max-width:78%;max-height:62%}
+.var.dark{background:var(--night);border-color:var(--night)}
+.var.lav{background:var(--lav-l);border-color:var(--lav-l)}
+.var-cap{margin-top:2mm}
+.var-cap b{font-size:8.6pt;color:var(--dark);display:block}
+.var-cap span{font-size:7.4pt;color:var(--muted)}
+.dont{position:relative;height:30mm;border:1px solid var(--gray);border-radius:3mm;display:grid;place-items:center;overflow:hidden;background:#fff}
+.dont img{width:70%}
+.dont::after{content:"";position:absolute;right:2.5mm;top:2.5mm;width:5mm;height:5mm;border-radius:50%;background:#D64545 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3 3l4 4M7 3L3 7' stroke='white' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.dont-cap{font-size:7.4pt;color:var(--muted);margin-top:1.5mm;text-align:center}
+
+/* colors */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:6mm}
+.sw{border-radius:3mm;overflow:hidden;border:1px solid var(--gray)}
+.sw .c{height:30mm;padding:3mm;display:flex;align-items:flex-end;font-size:7pt;font-weight:600;letter-spacing:.08em}
+.sw .meta{padding:3mm}
+.sw .meta b{display:block;font-size:9pt;color:var(--ink)}
+.sw .meta code{display:block;font-family:inherit;font-size:7.4pt;color:var(--muted);line-height:1.5}
+.sw .meta code strong{color:var(--dark);font-weight:700}
+.sw.big{grid-column:span 2}
+.sw.big .c{height:36mm}
+.ratio{display:flex;height:9mm;border-radius:2mm;overflow:hidden;margin-top:3mm}
+.ratio div{display:grid;place-items:center;font-size:7pt;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:7.8pt;margin-top:3mm}
+th,td{text-align:left;padding:1.8mm 2mm;border-bottom:1px solid var(--gray)}
+th{font-size:6.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ok{color:#1F8A5B;font-weight:700}.mid{color:#B7791F;font-weight:700}.no{color:#D64545;font-weight:700}
+.chip{display:inline-block;width:3.2mm;height:3.2mm;border-radius:1mm;vertical-align:-0.5mm;margin-right:1.2mm;border:1px solid rgb(0 0 0 / .08)}
+
+/* type */
+.spec{display:grid;grid-template-columns:40mm 1fr;gap:6mm;align-items:center;padding:4mm 0;border-bottom:1px solid var(--gray)}
+.spec .aa{font-size:56pt;line-height:1;color:var(--dark)}
+.spec h4{font-size:8pt;font-weight:600;color:var(--muted);letter-spacing:.06em}
+.spec h3{font-size:15pt;color:var(--dark);margin:.5mm 0 2mm}
+.spec .set{font-size:9.4pt;letter-spacing:.14em;line-height:1.7;color:var(--ink)}
+.scale{margin-top:5mm}
+.scale .row{display:grid;grid-template-columns:30mm 1fr;gap:5mm;align-items:baseline;padding:2mm 0;border-bottom:1px dashed var(--gray)}
+.scale .row span{font-size:7pt;color:var(--muted);letter-spacing:.04em}
+
+/* character */
+.traits{display:grid;grid-template-columns:repeat(5,1fr);margin-top:6mm}
+.trait{text-align:center;padding:0 2.5mm}
+.trait+.trait{border-left:1px solid var(--gray)}
+.trait .ic{width:17mm;height:17mm;border-radius:50%;background:var(--lav-l);display:grid;place-items:center;margin:0 auto 3mm}
+.trait svg{width:9mm;height:9mm;fill:none;stroke:var(--dark);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.trait b{display:block;font-size:9pt;color:var(--ink)}
+.trait p{font-size:7.4pt;color:var(--muted);margin-top:1.2mm;line-height:1.45}
+.rules .r{display:grid;grid-template-columns:20mm 1fr;gap:5mm;align-items:center;padding:4mm 0;border-bottom:1px solid var(--gray)}
+.rules .r .ic{height:15mm;display:grid;place-items:center;border-radius:2mm}
+.rules .r b{font-size:9pt;color:var(--ink)}
+.rules .r p{font-size:8pt;color:var(--muted);margin-top:.8mm}
+.voice{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm}
+.voice div{border-radius:2.5mm;padding:3.5mm 4mm;font-size:8pt}
+.voice .yes{background:#EAF6F0;color:#1d5c40}
+.voice .not{background:#FBECEC;color:#8a2f2f}
+.voice b{display:block;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1mm}
+.elements{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:3mm}
+.el{height:30mm;border-radius:3mm;overflow:hidden}
+
+/* applications */
+.app-label{display:inline-block;background:var(--lav-l);color:var(--dark);font-weight:700;font-size:8pt;padding:1.2mm 4mm;border-radius:2mm;margin-bottom:3mm}
+.jcover{width:100%;aspect-ratio:210/297;border-radius:2mm;background:#fff;box-shadow:0 4mm 10mm rgb(40 26 82 / .18);position:relative;overflow:hidden;padding:6mm 6mm}
+.jcover .hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.6mm solid var(--dark);padding-bottom:3mm}
+.jcover .hd img{height:7mm}
+.jcover .hd small{font-size:5.6pt;color:var(--muted);text-align:right;line-height:1.4}
+.jcover h5{font-size:13pt;font-weight:700;color:var(--night);line-height:1.12;margin-top:7mm}
+.jcover .tl{font-size:7pt;color:var(--muted);margin-top:2mm}
+.jcover .art{position:absolute;left:0;right:0;bottom:0;height:40%;background:var(--night);background-image:var(--iso)}
+.jcover .art img{position:absolute;right:6mm;bottom:8mm;height:24mm}
+.jcover .art::before{content:"";position:absolute;left:0;top:-9mm;width:100%;height:9mm;background:linear-gradient(to bottom right,transparent 50%,var(--night) 50.5%)}
+.jcover .art span{position:absolute;left:6mm;bottom:8mm;font-size:6pt;color:#C9BEEF;letter-spacing:.1em}
+.browser{border-radius:2.5mm;overflow:hidden;box-shadow:0 4mm 10mm rgb(40 26 82 / .18);background:#fff}
+.browser .bar{height:7mm;background:#F0EEF5;display:flex;align-items:center;gap:1.2mm;padding:0 3mm}
+.browser .bar i{width:2mm;height:2mm;border-radius:50%;background:#cfc9dc}
+.browser .bar span{margin-left:3mm;flex:1;height:4mm;border-radius:2mm;background:#fff;font-size:5.6pt;color:var(--muted);display:flex;align-items:center;padding-left:2.5mm}
+.browser .nav{display:flex;justify-content:space-between;align-items:center;padding:3mm 5mm;border-bottom:1px solid var(--gray)}
+.browser .nav img{height:7mm}
+.browser .nav span{font-size:6pt;color:var(--ink);display:flex;gap:4mm}
+.browser .nav span b{background:var(--dark);color:#fff;padding:1mm 2.5mm;border-radius:1mm;font-weight:600}
+.browser .hero{background:var(--night);background-image:var(--iso),radial-gradient(60mm 40mm at 85% 40%,rgb(110 82 163 / .6),transparent 70%);color:#fff;padding:8mm 5mm 9mm}
+.browser .hero h6{font-size:12pt;font-weight:700;line-height:1.15}
+.browser .hero p{font-size:6.4pt;color:#D9D0F5;margin-top:2mm;max-width:62mm}
+.browser .hero em{display:inline-block;margin-top:3.5mm;font-style:normal;font-size:6pt;font-weight:600;background:#fff;color:var(--dark);padding:1.2mm 3mm;border-radius:3mm}
+.avatar{width:30mm;height:30mm;border-radius:50%;background:#fff;box-shadow:0 0 0 2mm var(--lav-l),0 4mm 10mm rgb(40 26 82 / .18);display:grid;place-items:center;margin:3mm auto 1mm}
+.avatar img{width:20mm}
+.avatar.dk{background:var(--night)}
+.bcard{aspect-ratio:85/55;border-radius:2mm;box-shadow:0 3mm 8mm rgb(40 26 82 / .16);position:relative;overflow:hidden}
+.bcard.front{background:var(--night);background-image:var(--iso);display:grid;place-items:center}
+.bcard.front img{width:70%}
+.bcard.back{background:#fff;padding:3.5mm;display:grid;grid-template-columns:auto 1fr;gap:4mm;align-items:center}
+.bcard.back img{height:10mm}
+.bcard.back b{font-size:7.4pt;color:var(--night);display:block}
+.bcard.back span{font-size:5.2pt;color:var(--muted);display:block;line-height:1.5}
+.bcard.back span.role{color:var(--brand);font-weight:600;margin-bottom:1.5mm}
+.bcard.back::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1.6mm;background:linear-gradient(90deg,var(--dark),var(--lav))}
+.sig{border:1px solid var(--gray);border-radius:2.5mm;padding:4mm 5mm;display:flex;gap:5mm;align-items:center;font-size:7.4pt}
+.sig img{height:10mm}
+.sig .d{border-left:1px solid var(--lav);padding-left:5mm;line-height:1.5}
+.sig b{color:var(--night);font-size:8.4pt}
+.sig span{display:block;color:var(--muted)}
+.sig a{color:var(--brand);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- 1. KAPAK -->
+<section class="page cover">
+  <div class="tri"></div>
+  <div class="in">
+    <div class="kicker">Görsel Kimlik Rehberi · Sürüm 1.0</div>
+    <img class="logo" src="logo/pedper-logo-yatay-beyaz.svg" alt="PedPer Publishing" style="background:transparent">
+    <h1>Marka<br><span>Kiti</span></h1>
+    <div class="line"></div>
+    <p>Akademik yayıncılık için<br>görsel kimlik rehberi</p>
+  </div>
+  <div class="bottom">
+    <div><b>PedPer Publishing</b><br>Kasım 2026</div>
+    <div style="text-align:right">pedper.com<br>info@pedagogicalperspective.com</div>
+  </div>
+</section>
+
+<!-- 2. ANA LOGO -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>01</i>Ana Logo</div>
+  <p class="lead">Logo, izometrik perspektifte çizilmiş iki “P” harfinden oluşan bir sembol ile <b>PedPer Publishing</b> kelime işaretinin birleşimidir. Dolu ve çizgisel iki P, yayımlanan bilginin hem sağlam hem de açık olduğunu anlatır.</p>
+  <div class="hero-logo"><img src="logo/pedper-logo-yatay-renkli.svg" alt="PedPer Publishing ana logo"></div>
+
+  <div class="anatomy">
+    <div class="card"><span class="n">1</span><h4>Dolu P</h4><p>Üç tonlu, katı form. Yayımlanan bilginin derinliğini ve sağlam yapısını temsil eder.</p></div>
+    <div class="card"><span class="n">2</span><h4>Çizgisel P</h4><p>Aynı formun tel çerçevesi. Açık erişimi ve şeffaf editoryal süreçleri temsil eder.</p></div>
+    <div class="card"><span class="n">3</span><h4>Ayırıcı çizgi</h4><p>Sembolü kelime işaretinden ayıran ince, dikey Lavanta çizgi.</p></div>
+    <div class="card"><span class="n">4</span><h4>Kelime işareti</h4><p>“Ped” Koyu Mor, “Per” ve PUBLISHING Logo Lavanta; Montserrat.</p></div>
+  </div>
+
+  <div class="grid2" style="margin-top:7mm;grid-template-columns:1.25fr 1fr">
+    <div>
+      <div class="sub" style="margin-top:0">Koruma alanı</div>
+      <div class="space">
+        <div class="box"><img src="logo/pedper-logo-yatay-renkli.svg" alt="">
+          <span class="x" style="left:50%;top:1.5mm;transform:translateX(-50%)">x</span>
+          <span class="x" style="left:2.5mm;top:50%;transform:translateY(-50%)">x</span>
+          <span class="x" style="right:2.5mm;top:50%;transform:translateY(-50%)">x</span>
+          <span class="x" style="left:50%;bottom:1.5mm;transform:translateX(-50%)">x</span>
+        </div>
+      </div>
+      <p class="small" style="margin-top:2mm"><b>x</b> = logo yüksekliğinin %50’si. Bu alana metin, görsel veya başka bir öğe girmemelidir.</p>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">Minimum boyut</div>
+      <div class="minsize">
+        <figure><img src="logo/pedper-logo-yatay-renkli.svg" style="width:42mm" alt=""><figcaption><b>Yatay logo</b><br>Dijital 160 px · Baskı 40 mm</figcaption></figure>
+      </div>
+      <div class="minsize" style="margin-top:5mm">
+        <figure><img src="logo/pedper-sembol-renkli.svg" style="height:12mm;width:auto" alt=""><figcaption><b>Sembol</b><br>Dijital 32 px · Baskı 10 mm</figcaption></figure>
+        <figure><img src="logo/pedper-logo-dikey-renkli.svg" style="height:22mm;width:auto" alt=""><figcaption><b>Dikey logo</b><br>Dijital 96 px · Baskı 22 mm</figcaption></figure>
+      </div>
+      <p class="small" style="margin-top:4mm">Bu boyutların altında çizgisel P okunurluğunu yitirir; daha küçük alanlarda yalnızca sembol kullanılır.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>01</b> Ana Logo</span><span>pedper.com</span></div>
+</section>
+
+<!-- 3. VARYASYONLAR -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>02</i>Logo Varyasyonları</div>
+  <p class="lead">Her mecra için hazır bir versiyon vardır. Öncelik her zaman beyaz veya çok açık zemin üzerindeki renkli yatay logodur.</p>
+
+  <div class="grid3" style="margin-top:6mm;row-gap:6mm">
+    <div><div class="var"><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div><div class="var-cap"><b>Yatay · Renkli</b><span>Birincil logo. Web, dergi, sunum.</span></div></div>
+    <div><div class="var dark"><img src="logo/pedper-logo-yatay-beyaz.svg" alt=""></div><div class="var-cap"><b>Yatay · Koyu zemin</b><span>Gece Moru ve koyu fotoğraflar üzerinde.</span></div></div>
+    <div><div class="var"><img src="logo/pedper-logo-dikey-renkli.svg" alt="" style="max-height:78%"></div><div class="var-cap"><b>Dikey · Renkli</b><span>Kare ve dar alanlar, afiş, roll-up.</span></div></div>
+    <div><div class="var lav"><img src="logo/pedper-sembol-renkli.svg" alt="" style="max-height:72%;mix-blend-mode:multiply"></div><div class="var-cap"><b>Sembol (tek başına)</b><span>Avatar, favicon, uygulama ikonu.</span></div></div>
+    <div><div class="var"><img src="logo/pedper-logo-yatay-siyah.svg" alt=""></div><div class="var-cap"><b>Monokrom · Siyah</b><span>Faks, gazete, tek renk baskı.</span></div></div>
+    <div><div class="var"><img src="logo/pedper-logo-yatay-mor.svg" alt=""></div><div class="var-cap"><b>Tek renk · Mor</b><span>Kabartma, gofre, özel baskı.</span></div></div>
+  </div>
+
+  <div class="sub" style="margin-top:9mm">Hatalı kullanımlar</div>
+  <div class="grid3" style="grid-template-columns:repeat(6,1fr);gap:3mm">
+    <div><div class="dont"><img src="logo/pedper-logo-yatay-renkli.svg" style="transform:scaleX(1.45) scaleY(.8)" alt=""></div><div class="dont-cap">Esnetmeyin</div></div>
+    <div><div class="dont"><img src="logo/pedper-logo-yatay-renkli.svg" style="transform:rotate(-14deg)" alt=""></div><div class="dont-cap">Döndürmeyin</div></div>
+    <div><div class="dont"><img src="logo/pedper-logo-yatay-renkli.svg" style="filter:hue-rotate(150deg) saturate(1.6)" alt=""></div><div class="dont-cap">Rengini değiştirmeyin</div></div>
+    <div><div class="dont"><img src="logo/pedper-logo-yatay-renkli.svg" style="filter:drop-shadow(1mm 1mm .6mm rgb(0 0 0 / .55))" alt=""></div><div class="dont-cap">Efekt eklemeyin</div></div>
+    <div><div class="dont" style="background:repeating-linear-gradient(45deg,#C9A84C 0 3mm,#7a4bb0 3mm 6mm)"><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div><div class="dont-cap">Karmaşık zemin</div></div>
+    <div><div class="dont"><img src="logo/pedper-sembol-renkli.svg" style="width:auto;height:52%;transform:scaleX(-1)" alt=""></div><div class="dont-cap">Aynalamayın</div></div>
+  </div>
+  <p class="small" style="margin-top:4mm">Logo dosyaları yalnızca <b>logo/</b> klasöründeki orijinal SVG’lerden kullanılmalı; yeniden çizilmemeli, öğelerin yeri ve oranı değiştirilmemelidir.</p>
+  <div class="corner"></div>
+  <div class="foot"><span><b>02</b> Logo Varyasyonları</span><span>pedper.com</span></div>
+</section>
+
+<!-- 4. RENK -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>03</i>Renk Paleti</div>
+  <p class="lead">Palet, logonun üç tonlu sembolünden türetilmiştir. Mor tonları kimliği taşır; açık tonlar ferahlık ve okunurluk sağlar.</p>
+
+  <div class="swatches">
+    <div class="sw big"><div class="c" style="background:#4A2E83;color:#fff">ANA RENK</div><div class="meta"><b>Koyu Mor</b><code><strong>#4A2E83</strong> · RGB 74 46 131 · CMYK 44 65 0 49</code><code>Başlıklar, “Ped”, birincil düğmeler</code></div></div>
+    <div class="sw big"><div class="c" style="background:#281A52;color:#C9BEEF">KOYU ZEMİN</div><div class="meta"><b>Gece Moru</b><code><strong>#281A52</strong> · RGB 40 26 82 · CMYK 51 68 0 68</code><code>Kapaklar, koyu bantlar, footer</code></div></div>
+    <div class="sw"><div class="c" style="background:#6E52A3;color:#fff"></div><div class="meta"><b>Marka Moru</b><code><strong>#6E52A3</strong></code><code>RGB 110 82 163</code><code>CMYK 33 50 0 36</code></div></div>
+    <div class="sw"><div class="c" style="background:#8C7BC4;color:#fff"></div><div class="meta"><b>Logo Lavanta</b><code><strong>#8C7BC4</strong></code><code>RGB 140 123 196</code><code>CMYK 29 37 0 23</code></div></div>
+    <div class="sw"><div class="c" style="background:#A68CC8"></div><div class="meta"><b>Lavanta</b><code><strong>#A68CC8</strong></code><code>RGB 166 140 200</code><code>CMYK 17 30 0 22</code></div></div>
+    <div class="sw"><div class="c" style="background:#E6DEFA"></div><div class="meta"><b>Açık Lavanta</b><code><strong>#E6DEFA</strong></code><code>RGB 230 222 250</code><code>CMYK 8 11 0 2</code></div></div>
+  </div>
+  <div class="grid3" style="grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:4mm">
+    <div class="sw"><div class="c" style="height:12mm;background:#E9E9EE"></div><div class="meta"><b>Açık Gri</b><code><strong>#E9E9EE</strong> · Çizgi, ayırıcı</code></div></div>
+    <div class="sw"><div class="c" style="height:12mm;background:#1E1B2E"></div><div class="meta"><b>Mürekkep</b><code><strong>#1E1B2E</strong> · Gövde metni</code></div></div>
+    <div class="sw"><div class="c" style="height:12mm;background:#5C5870"></div><div class="meta"><b>Gri Metin</b><code><strong>#5C5870</strong> · Açıklama</code></div></div>
+    <div class="sw"><div class="c" style="height:12mm;background:#fff"></div><div class="meta"><b>Beyaz</b><code><strong>#FFFFFF</strong> · Ana zemin</code></div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:7mm">
+    <div>
+      <div class="sub" style="margin-top:0">Kullanım oranı</div>
+      <div class="ratio">
+        <div style="flex:60;background:#F6F4FB;color:var(--muted);border:1px solid var(--gray)">Beyaz / açık %60</div>
+        <div style="flex:22;background:#4A2E83;color:#fff">Morlar %22</div>
+        <div style="flex:12;background:#281A52;color:#C9BEEF">%12</div>
+        <div style="flex:6;background:#A68CC8"></div>
+      </div>
+      <p class="small" style="margin-top:2.5mm">Sayfaların çoğu beyaz ve açık tonlarda kalır; mor tonları başlık, vurgu ve düğmelerde, Gece Moru kapak ve bantlarda, Lavanta ise küçük vurgu öğelerinde kullanılır.</p>
+    </div>
+    <div>
+      <div class="sub" style="margin-top:0">Erişilebilirlik (WCAG kontrastı)</div>
+      <table>
+        <tr><th>Renk</th><th>Beyaz üzerinde</th><th>Kullanım</th></tr>
+        <tr><td><span class="chip" style="background:#4A2E83"></span>Koyu Mor</td><td>10,4 : 1</td><td class="ok">Her metin</td></tr>
+        <tr><td><span class="chip" style="background:#6E52A3"></span>Marka Moru</td><td>6,2 : 1</td><td class="ok">Her metin</td></tr>
+        <tr><td><span class="chip" style="background:#8C7BC4"></span>Logo Lavanta</td><td>3,7 : 1</td><td class="mid">Büyük başlık</td></tr>
+        <tr><td><span class="chip" style="background:#A68CC8"></span>Lavanta</td><td>2,9 : 1</td><td class="no">Metinde değil</td></tr>
+        <tr><td><span class="chip" style="background:#5C5870"></span>Gri Metin</td><td>6,8 : 1</td><td class="ok">Her metin</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span><b>03</b> Renk Paleti</span><span>pedper.com</span></div>
+</section>
+
+<!-- 5. TİPOGRAFİ -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>04</i>Tipografi</div>
+  <p class="lead">Kelime işaretiyle aynı aileden gelen <b>Montserrat</b>, tüm başlık ve gövde metinlerinde kullanılır. Ücretsizdir, Google Fonts’ta bulunur ve Türkçe karakterleri tam destekler. Yedek yazı tipi: Arial.</p>
+
+  <div class="spec" style="margin-top:4mm">
+    <div class="aa" style="font-weight:700">Aa</div>
+    <div><h4>BAŞLIK YAZI TİPİ</h4><h3 style="font-weight:700">Montserrat SemiBold / Bold</h3>
+      <div class="set" style="font-weight:600">ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ<br>abcçdefgğhıijklmnoöprsştuüvyz<br>0123456789 · ! ? & % ( ) “ ”</div></div>
+  </div>
+  <div class="spec">
+    <div class="aa" style="font-weight:400">Aa</div>
+    <div><h4>GÖVDE YAZI TİPİ</h4><h3 style="font-weight:400">Montserrat Regular / Medium</h3>
+      <div class="set" style="font-weight:400">ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ<br>abcçdefgğhıijklmnoöprsştuüvyz<br>0123456789 · ! ? & % ( ) “ ”</div></div>
+  </div>
+
+  <div class="sub" style="margin-top:5mm">Metin hiyerarşisi</div>
+  <div class="scale">
+    <div class="row"><span>H1 · Bold<br>28 pt / 34</span><div style="font-size:20pt;font-weight:700;color:var(--dark);line-height:1.15">Açık ve güvenilir bilim</div></div>
+    <div class="row"><span>H2 · SemiBold<br>18 pt / 24</span><div style="font-size:16pt;font-weight:600;color:var(--dark)">Pedagogical Perspective</div></div>
+    <div class="row"><span>H3 · SemiBold<br>12 pt / 18</span><div style="font-size:12pt;font-weight:600;color:var(--brand)">Hakem değerlendirme süreci</div></div>
+    <div class="row"><span>Gövde · Regular<br>10 pt / 16</span><div style="font-size:10pt;color:var(--ink)">Tüm makaleler çift kör hakem değerlendirmesinden geçer ve CC BY 4.0 lisansıyla ücretsiz olarak erişime açılır.</div></div>
+    <div class="row"><span>Etiket · SemiBold<br>8 pt · +%20 aralık</span><div style="font-size:8pt;font-weight:600;letter-spacing:.2em;color:var(--lav);text-transform:uppercase">Açık erişim · eISSN 2822-4841</div></div>
+  </div>
+  <div class="grid2" style="margin-top:5mm">
+    <div class="card"><h4>Yapın</h4><p>Başlıklarda SemiBold veya Bold, gövdede Regular kullanın. Satır aralığını gövdede 1,5–1,6 tutun; satır uzunluğu 60–80 karakteri geçmesin.</p></div>
+    <div class="card"><h4>Yapmayın</h4><p>Başka yazı tiplerini karıştırmayın, gövde metnini tamamen büyük harfle yazmayın ve Lavanta’yı uzun metinlerde kullanmayın.</p></div>
+  </div>
+  <div class="corner"></div>
+  <div class="foot"><span><b>04</b> Tipografi</span><span>pedper.com</span></div>
+</section>
+
+<!-- 6. MARKA KARAKTERİ + İLKELER -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>05</i>Marka Karakteri</div>
+  <p class="lead">PedPer Publishing’in her iletişimde hissettirmesi gereken beş temel özellik.</p>
+  <div class="traits">
+    <div class="trait"><div class="ic"><svg viewBox="0 0 32 32"><path d="M2 12l14-6 14 6-14 6z"/><path d="M8 15v7c4 3 12 3 16 0v-7M30 12v8"/></svg></div><b>Akademik</b><p>Bilimsel titizlik ve kanıta dayalı dil.</p></div>
+    <div class="trait"><div class="ic"><svg viewBox="0 0 32 32"><path d="M16 3l11 4v8c0 7-5 12-11 14C10 27 5 22 5 15V7z"/><path d="M11 16l4 4 7-8"/></svg></div><b>Güvenilir</b><p>Şeffaf süreçler, COPE ilkeleri.</p></div>
+    <div class="trait"><div class="ic"><svg viewBox="0 0 32 32"><path d="M16 4l13 7-13 7-13-7z"/><path d="M3 16l13 7 13-7M3 21l13 7 13-7"/></svg></div><b>Modern</b><p>Sade, dijital öncelikli tasarım.</p></div>
+    <div class="trait"><div class="ic"><svg viewBox="0 0 32 32"><path d="M16 8c-3.5-2-8-3-13-2v19c5-1 9.5 0 13 2 3.5-2 8-3 13-2V6c-5-1-9.5 0-13 2z"/><path d="M16 8v19"/></svg></div><b>Açık Erişim Odaklı</b><p>Bilgi herkes için ücretsiz.</p></div>
+    <div class="trait"><div class="ic"><svg viewBox="0 0 32 32"><path d="M3 13l6-5 6 3 3-2 5 1 6 3"/><path d="M3 13l4 6 6 5c1 1 2.5 1 3.5 0l9-8M13 13l5 5M16 11l6 6M19 21l2 2"/></svg></div><b>Profesyonel</b><p>Zamanında, özenli, net iletişim.</p></div>
+  </div>
+
+  <div class="sub" style="margin-top:8mm">Ses tonu</div>
+  <div class="voice">
+    <div class="yes"><b>Böyle konuşuruz</b>“Makaleniz iki bağımsız hakeme gönderildi. Ortalama değerlendirme süresi 6 haftadır.”</div>
+    <div class="not"><b>Böyle konuşmayız</b>“Süper hızlı yayın! Makaleniz garantili olarak kabul edilir!!!”</div>
+  </div>
+
+  <div class="rule"></div>
+  <div class="grid2" style="gap:8mm">
+    <div class="rules">
+      <div class="label" style="font-size:10.5pt"><i>06</i>Kullanım İlkeleri</div>
+      <div class="r" style="margin-top:3mm"><div class="ic" style="border:1px dashed var(--lav)"><img src="logo/pedper-sembol-renkli.svg" style="height:9mm" alt=""></div><div><b>Yeterli boşluk bırakın</b><p>Logonun çevresinde en az logo yüksekliğinin %50’si kadar boş alan olsun.</p></div></div>
+      <div class="r"><div class="ic" style="background:var(--soft)"><svg viewBox="0 0 32 32" style="width:9mm;height:9mm;fill:none;stroke:var(--brand);stroke-width:1.5"><rect x="4" y="7" width="24" height="18" rx="2"/><circle cx="11" cy="13" r="2.5"/><path d="M4 23l7-6 5 4 4-3 8 6"/></svg></div><div><b>Açık zeminleri tercih edin</b><p>Renkli logo beyaz veya çok açık zeminde; koyu zeminde koyu zemin versiyonu.</p></div></div>
+      <div class="r"><div class="ic" style="background:var(--soft)"><svg viewBox="0 0 32 32" style="width:9mm;height:9mm;fill:none;stroke:var(--brand);stroke-width:1.5;stroke-linejoin:round"><path d="M16 4l13 7-13 7-13-7z"/><path d="M3 16l13 7 13-7M3 21l13 7 13-7"/></svg></div><div><b>Görsel tutarlılık sağlayın</b><p>Palet, tipografi ve logo dosyalarını tüm mecralarda aynı biçimde kullanın.</p></div></div>
+    </div>
+    <div>
+      <div class="label" style="font-size:10.5pt"><i>07</i>Grafik Öğeler</div>
+      <p class="small" style="margin-top:3mm">Logodaki izometrik geometriden türeyen yardımcı öğeler. Logo ile yarışmayacak kadar sade kullanılmalıdır.</p>
+      <div class="elements" style="grid-template-columns:1fr 1fr">
+        <div><div class="el" style="background:var(--night);background-image:var(--iso)"></div><p class="small" style="margin-top:1.5mm"><b>İzometrik ızgara</b> · koyu zeminlerde doku</p></div>
+        <div><div class="el" style="background:#fff url('logo/pedper-sembol-mor.svg') center/16mm auto repeat;border:1px solid var(--gray);opacity:.5"></div><p class="small" style="margin-top:1.5mm"><b>Sembol deseni</b> · %10–20 opaklık</p></div>
+        <div><div class="el" style="background:linear-gradient(135deg,transparent 55%,var(--lav-l) 55%),linear-gradient(135deg,transparent 75%,var(--lav) 75%);border:1px solid var(--gray)"></div><p class="small" style="margin-top:1.5mm"><b>Köşe üçgenleri</b> · sayfa köşeleri</p></div>
+        <div><div class="el" style="background:#fff;border:1px solid var(--gray);display:grid;place-items:center"><div style="width:70%"><div style="height:1.2mm;background:linear-gradient(90deg,var(--dark),var(--lav));border-radius:1mm"></div><div style="height:.4mm;background:var(--gray);margin-top:3mm"></div></div></div><p class="small" style="margin-top:1.5mm"><b>Gradyan çizgi</b> · başlık altı vurgu</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span><b>05–07</b> Karakter · İlkeler · Grafik Öğeler</span><span>pedper.com</span></div>
+</section>
+
+<!-- 7. UYGULAMALAR -->
+<section class="page">
+  <div class="top"><span>PedPer Publishing · Marka Kiti</span><img src="logo/pedper-logo-yatay-renkli.svg" alt=""></div>
+  <div class="label"><i>08</i>Uygulama Örnekleri</div>
+  <p class="lead">Marka kimliğinin farklı mecralarda nasıl uygulanacağına dair örnekler.</p>
+
+  <div class="grid2" style="grid-template-columns:62mm 1fr;gap:8mm;margin-top:6mm">
+    <div>
+      <div class="app-label">Dergi kapağı</div>
+      <div class="jcover">
+        <div class="hd"><img src="logo/pedper-logo-yatay-renkli.svg" alt=""><small>Cilt 6 · Sayı 1<br>Haziran 2026<br>eISSN 2822-4841</small></div>
+        <h5>Pedagogical<br>Perspective</h5>
+        <div class="tl">An international peer-reviewed journal of pedagogy and education</div>
+        <div class="art"><span>pedagogicalperspective.com</span><img src="logo/pedper-sembol-beyaz.svg" alt=""></div>
+      </div>
+    </div>
+    <div>
+      <div class="app-label">Web sitesi (üst menü)</div>
+      <div class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>pedper.com</span></div>
+        <div class="nav"><img src="logo/pedper-logo-yatay-renkli.svg" alt=""><span>Dergiler<span>Politikalar</span><span>Hakkımızda</span><b>İletişim</b></span></div>
+        <div class="hero"><h6>Eğitimde açık ve<br>güvenilir bilim</h6><p>Pedagoji, öğretmen eğitimi ve eğitim uygulamaları üzerine hakemli, ücretsiz okunan ve ücretsiz yayımlanan araştırmalar.</p><em>Dergilerimizi inceleyin →</em></div>
+      </div>
+      <div class="app-label" style="margin-top:7mm">Kartvizit (ön · arka)</div>
+      <div class="grid2" style="gap:4mm">
+        <div class="bcard front"><img src="logo/pedper-logo-yatay-beyaz.svg" alt=""></div>
+        <div class="bcard back"><img src="logo/pedper-sembol-renkli.svg" alt=""><div><b>Erhan Yaylak</b><span class="role">Yayıncı</span><span>info@pedagogicalperspective.com</span><span>pedper.com</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="grid-template-columns:auto auto 1fr;gap:8mm;margin-top:9mm;align-items:end">
+    <div><div class="app-label">Sosyal medya</div><div class="avatar"><img src="logo/pedper-sembol-renkli.svg" alt=""></div></div>
+    <div><div class="app-label">Koyu avatar</div><div class="avatar dk"><img src="logo/pedper-sembol-beyaz.svg" alt=""></div></div>
+    <div><div class="app-label">E-posta imzası</div>
+      <div class="sig"><img src="logo/pedper-logo-yatay-renkli.svg" alt=""><div class="d"><b>Editoryal Ofis</b><span>PedPer Publishing</span><span><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a></span><span><a href="https://pedper.com">pedper.com</a></span></div></div>
+    </div>
+  </div>
+  <div class="corner"></div>
+  <div class="foot"><span><b>08</b> Uygulama Örnekleri</span><span>© 2026 PedPer Publishing</span></div>
+</section>
+
+</body>
+</html>
