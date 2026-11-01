@@ -20,6 +20,10 @@ python3 src/build_site.py      # docs/ klasörünü üretir
 
 `docs/` içindeki her HTML dosyası tek başına çalışır: stil ve logolar sayfanın içine gömülüdür.
 
+## Yayın
+
+Site Cloudflare Workers üzerinde yayınlanır (`wrangler.jsonc`, statik dosyalar `docs/` klasöründen). `main` dalına yapılan her gönderim siteyi otomatik olarak yeniden yayınlar.
+
 ## Sayfalar
 
 `index.html` (ana sayfa), `about.html`, `journals.html`, `authors.html`, `policies.html`, `contact.html`

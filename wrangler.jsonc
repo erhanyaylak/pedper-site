@@ -1,0 +1,10 @@
+// Cloudflare Workers ayarı: siteyi docs/ klasöründeki statik dosyalardan sunar.
+// Derleme adımı yoktur; docs/ önceden src/build_site.py ile üretilir.
+{
+  "name": "pedper-site",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./docs",
+    "html_handling": "auto-trailing-slash"
+  }
+}
