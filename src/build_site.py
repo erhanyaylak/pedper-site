@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generates the multi-page pedper.com site into ../docs/ (run: python3 src/build_site.py)."""
-import os, urllib.parse
+import os, urllib.parse, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
@@ -23,6 +23,7 @@ css += r'''
 .btn-outline:hover{border-color:var(--dark)}
 nav a.active{color:var(--brand);font-weight:600}
 nav a.active:not(.btn){box-shadow:inset 0 -2px 0 var(--lav)}
+nav a.btn.active{color:#fff;background:var(--dark);box-shadow:0 0 0 3px var(--lav-l)}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;padding-top:18px;border-top:1px solid var(--gray)}
 .facts dt,.indexed span,.commit span,.eyebrow{display:block;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--lav)}
 .facts dd{font-size:.95rem;font-weight:500;margin-top:2px}
@@ -134,6 +135,7 @@ table.spec td{color:var(--ink)}
 }
 @media (min-width:961px) and (max-width:1180px){.traits,.cards.c4,.steps,.kpis{grid-template-columns:repeat(2,1fr)}}
 '''
+css += '\n/* ---------- contact (Scitera-style) ---------- */\n.c-head{background:var(--soft);border-bottom:1px solid var(--gray);padding:56px 0 52px}\n.c-head .crumbs{color:var(--muted)}\n.c-head .crumbs a{color:var(--brand)}\n.c-head h1{font-size:clamp(2.2rem,4.4vw,3rem);font-weight:700;color:var(--night);margin-top:12px;letter-spacing:-.01em}\n.c-head p{color:var(--muted);font-size:1.08rem;margin-top:12px;max-width:640px}\n.c-main{padding:64px 0 88px}\n.c-grid{display:grid;grid-template-columns:minmax(260px,.75fr) 1.6fr;gap:28px;align-items:start}\n.c-info dl{display:grid;gap:20px}\n.c-info dt{font-size:.76rem;font-weight:600;color:var(--muted)}\n.c-info dd{font-weight:500;color:var(--ink);margin-top:3px;line-height:1.5;word-break:break-word}\n.c-info dd a{color:var(--ink)}\n.c-info dd a:hover{color:var(--brand)}\n.map{position:relative;margin-top:28px;height:240px;border-radius:14px;background:var(--gray);background-image:var(--iso);overflow:hidden;border:1px solid var(--gray)}\n.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}\n.map-open{position:absolute;left:12px;top:12px;z-index:2;background:#fff;border-radius:8px;padding:6px 12px;font-size:.8rem;font-weight:600;color:var(--dark);box-shadow:0 2px 8px rgb(40 26 82 / .12)}\n.map-open:hover{color:var(--brand)}\n.map-consent{position:absolute;left:14px;right:14px;bottom:14px}\n.btn-map{font:inherit;font-size:.82rem;font-weight:600;background:#fff;color:var(--ink);border:1px solid var(--line-strong,#83838a);border-radius:8px;padding:8px 14px;cursor:pointer}\n.btn-map:hover{border-color:var(--dark);color:var(--dark)}\n.map-consent small{display:block;margin-top:8px;font-size:.74rem;color:var(--muted)}\n.c-form{background:#fff;border:1px solid var(--gray);border-radius:16px;padding:30px;box-shadow:0 10px 30px -18px rgb(40 26 82 / .25);display:grid;gap:18px}\n.c-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}\n.c-form label{display:grid;gap:7px;font-size:.88rem;font-weight:600;color:var(--ink)}\n.c-form .lt b{color:#C0392B;margin-left:3px;font-weight:600}\n.c-form input,.c-form select,.c-form textarea{font:inherit;font-weight:400;font-size:.93rem;color:var(--ink);background:var(--soft);border:1px solid #D9D3E6;border-radius:8px;padding:11px 13px;width:100%}\n.c-form textarea{resize:vertical;min-height:150px}\n.c-form input:focus,.c-form select:focus,.c-form textarea:focus{outline:2px solid var(--lav);outline-offset:0;border-color:var(--brand);background:#fff}\n.c-count{text-align:right;font-size:.78rem;color:var(--muted);margin-top:-10px}\n.c-err{color:#B03A3A;font-size:.86rem;font-weight:500}\n.c-foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}\n.c-foot p{font-size:.86rem;color:var(--muted);max-width:420px}\n.c-foot .btn svg{margin-right:2px}\n@media (max-width:960px){.c-grid,.c-form .row2{grid-template-columns:1fr}.c-head{padding:40px 0 36px}.c-main{padding:40px 0 60px}.c-form{padding:22px}}\n'
 os.makedirs(OUT + '/assets', exist_ok=True)
 import shutil
 for _f in ['pedper-logo-yatay-renkli.svg', 'pedper-logo-yatay-beyaz.svg', 'pedper-sembol-beyaz.svg', 'pedper-sembol-renkli.svg']:
@@ -802,49 +804,104 @@ write('policies.html', 'Policies — PedPer Publishing',
       'Open access, ethics, peer review and editorial policies of PedPer Publishing and Pedagogical Perspective, aligned with COPE.', policies)
 
 # ================================================================ CONTACT
-contact = page_hero('Contact', 'Contact us',
-    'Reach the right team quickly: publisher enquiries, the editorial office or submission support.') + f'''
-<section class="sub-sec">
+MAP_Q = 'Ordu Üniversitesi Eğitim Fakültesi, Cumhuriyet Yerleşkesi, Altınordu, Ordu'
+MAP_EMBED = 'https://www.google.com/maps?q=' + urllib.parse.quote(MAP_Q) + '&z=16&output=embed'
+MAP_LINK = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(MAP_Q)
+contact = f'''<section class="c-head">
   <div class="wrap">
-    <div class="people">
-      <div class="person"><div class="role">Publisher enquiries</div><h3>PedPer Publishing</h3><p>Partnerships, new journal proposals, indexing and general questions about the publisher.</p><p><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a><br><a href="tel:+904545022829">+90 454 502 28 29</a></p></div>
-      <div class="person"><div class="role">Editorial office</div><h3>Emrah Akman</h3><p>Editor-in-Chief, Ordu University. Editorial policy, peer review and publication decisions.</p><p><a href="mailto:editor@pedagogicalperspective.com">editor@pedagogicalperspective.com</a><br><a href="tel:+904522265200">+90 452 226 52 00</a> (ext. 5591)</p></div>
-      <div class="person"><div class="role">Submission support</div><h3>Ceren Hatipoğlu</h3><p>Help with the submission system, templates, forms and the status of your manuscript.</p><p><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a><br><a href="tel:+904522265200">+90 452 226 52 00</a> (ext. 5542)</p></div>
+    <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+    <h1>Contact</h1>
+    <p>Questions, feedback and collaboration requests for PedPer Publishing and Pedagogical Perspective.</p>
+  </div>
+</section>
+
+<section class="c-main">
+  <div class="wrap c-grid">
+    <div class="c-info">
+      <dl>
+        <div><dt>Email</dt><dd><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a></dd></div>
+        <div><dt>Editorial office</dt><dd><a href="mailto:editor@pedagogicalperspective.com">editor@pedagogicalperspective.com</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+904545022829">+90 454 502 28 29</a></dd></div>
+        <div><dt>Address</dt><dd>Ordu University, Faculty of Education<br>Cumhuriyet Campus, Altınordu, Ordu, Türkiye</dd></div>
+      </dl>
+      <div class="map" id="map">
+        <a class="map-open" href="{MAP_LINK}" target="_blank" rel="noopener">Open in Maps ↗</a>
+        <div class="map-consent">
+          <button type="button" class="btn-map" onclick="loadMap()">Show map</button>
+          <small>Google Maps will load; Google may set cookies.</small>
+        </div>
+      </div>
     </div>
+
+    <form class="c-form" id="cform" novalidate>
+      <div class="row2">
+        <label><span class="lt">Full name<b>*</b></span><input name="name" required autocomplete="name" placeholder="Your full name"></label>
+        <label><span class="lt">Subject<b>*</b></span>
+          <select name="subject" required>
+            <option value="" disabled selected>Publisher enquiry, submission support…</option>
+            <option data-to="info">Publisher enquiry</option>
+            <option data-to="info">Partnership</option>
+            <option data-to="info">New journal proposal</option>
+            <option data-to="info">Indexing</option>
+            <option data-to="info">Submission support</option>
+            <option data-to="editor">Editorial process / peer review</option>
+            <option data-to="info">Other</option>
+          </select>
+        </label>
+      </div>
+      <div class="row2">
+        <label><span class="lt">Email address<b>*</b></span><input name="email" type="email" required autocomplete="email" placeholder="name@example.com"></label>
+        <label><span class="lt">Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+90 (5xx) 000 00 00"></label>
+      </div>
+      <label><span class="lt">Your message<b>*</b></span><textarea name="message" required maxlength="2000" rows="7" placeholder="Please describe your request in detail…"></textarea></label>
+      <div class="c-count"><span id="ccount">0</span> / 2000 characters</div>
+      <p class="c-err" id="cerr" hidden>Please fill in the required fields and enter a valid email address.</p>
+      <div class="c-foot">
+        <p>Sending opens your email app with your message ready to send to our team.</p>
+        <button type="submit" class="btn btn-primary"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>Send message</button>
+      </div>
+    </form>
   </div>
 </section>
 
 <section class="sub-sec alt">
-  <div class="wrap two">
-    <div>
-      {label('01', 'Addresses')}
-      <h2>Where to find us</h2>
-      <p class="lead">Postal correspondence for the publisher and the editorial office.</p>
-    </div>
-    <div class="cards c2" style="margin-top:0">
-      <div class="card"><div class="ic">{IC['server']}</div><h3>Publisher’s executive office</h3><p>PedPer Publishing<br>Operated by Scitera Information Technologies Ltd.<br>Pazarsuyu Village, 2nd Organized Industrial Zone<br>4th Street, Building No. 5<br>Giresun Technology Development Zone<br>Ground Floor, Office Z12<br>Giresun, Türkiye</p></div>
-      <div class="card"><div class="ic">{IC['book']}</div><h3>Editorial office</h3><p>Pedagogical Perspective<br>Ordu University, Faculty of Education<br>Department of Educational Sciences<br>1st Floor, Cumhuriyet Campus<br>Altınordu, Ordu, Türkiye</p></div>
+  <div class="wrap">
+    {label('01', 'Who to contact')}
+    <h2>Find the right channel</h2>
+    <div class="people">
+      <div class="person"><div class="role">Publisher enquiries</div><h3>PedPer Publishing</h3><p>Partnerships, new journal proposals, indexing and general questions. Operated by Scitera Information Technologies Ltd., Giresun Technology Development Zone, Office Z12, Giresun.</p><p><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a><br><a href="tel:+904545022829">+90 454 502 28 29</a></p></div>
+      <div class="person"><div class="role">Editorial office</div><h3>Emrah Akman</h3><p>Editor-in-Chief, Ordu University. Editorial policy, peer review, ethics concerns and publication decisions.</p><p><a href="mailto:editor@pedagogicalperspective.com">editor@pedagogicalperspective.com</a><br><a href="tel:+904522265200">+90 452 226 52 00</a> (ext. 5591)</p></div>
+      <div class="person"><div class="role">Submission support</div><h3>Ceren Hatipoğlu</h3><p>Submission system, templates and forms, manuscript status and appeals (see the <a href="{J}complaintsappealspolicy" rel="noopener">Complaints &amp; Appeals Policy</a>).</p><p><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a><br><a href="tel:+904522265200">+90 452 226 52 00</a> (ext. 5542)</p></div>
     </div>
   </div>
 </section>
 
-<section class="sub-sec">
-  <div class="wrap">
-    {label('02', 'Who to contact')}
-    <h2>Find the right channel</h2>
-    <table class="spec">
-      <thead><tr><th>Topic</th><th>Contact</th></tr></thead>
-      <tr><td>Partnerships, new journal proposals, publisher questions</td><td><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a></td></tr>
-      <tr><td>Editorial decisions, peer review, ethics concerns</td><td><a href="mailto:editor@pedagogicalperspective.com">editor@pedagogicalperspective.com</a></td></tr>
-      <tr><td>Appeals against editorial decisions</td><td><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a> — see the <a href="{J}complaintsappealspolicy" rel="noopener">Complaints &amp; Appeals Policy</a></td></tr>
-      <tr><td>Submission system, templates and forms</td><td><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a></td></tr>
-      <tr><td>Indexing enquiries</td><td><a href="mailto:info@pedagogicalperspective.com">info@pedagogicalperspective.com</a></td></tr>
-    </table>
-  </div>
-</section>
-''' + CTA
+<script>
+function loadMap(){{
+  var m=document.getElementById('map');
+  var f=document.createElement('iframe');
+  f.src={json.dumps(MAP_EMBED)};
+  f.title='Map: Ordu University, Faculty of Education';
+  f.loading='lazy'; f.referrerPolicy='no-referrer-when-downgrade'; f.allowFullscreen=true;
+  m.querySelector('.map-consent').remove(); m.appendChild(f); m.classList.add('on');
+}}
+(function(){{
+  var f=document.getElementById('cform'), c=document.getElementById('ccount'), e=document.getElementById('cerr');
+  f.message.addEventListener('input',function(){{c.textContent=f.message.value.length;}});
+  f.addEventListener('submit',function(ev){{
+    ev.preventDefault();
+    var ok=f.name.value.trim()&&f.subject.value&&f.message.value.trim()&&/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(f.email.value.trim());
+    e.hidden=!!ok; if(!ok) return;
+    var opt=f.subject.options[f.subject.selectedIndex];
+    var to=(opt.dataset.to==='editor'?'editor':'info')+'@pedagogicalperspective.com';
+    var body=f.message.value.trim()+'\\n\\n--\\n'+f.name.value.trim()+'\\n'+f.email.value.trim()+(f.phone.value.trim()?'\\n'+f.phone.value.trim():'');
+    location.href='mailto:'+to+'?subject='+encodeURIComponent('[PedPer] '+f.subject.value)+'&body='+encodeURIComponent(body);
+  }});
+}})();
+</script>
+'''
 write('contact.html', 'Contact — PedPer Publishing',
-      'Contact PedPer Publishing and the Pedagogical Perspective editorial office: emails, phone numbers and postal addresses.', contact, ORG_LD)
+      'Contact PedPer Publishing and the Pedagogical Perspective editorial office: email, phone, address, map and contact form.', contact, ORG_LD)
 
 print('built', sorted(os.listdir(OUT)))
 
